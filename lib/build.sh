@@ -139,8 +139,13 @@ install_and_cache_deps() {
 }
 
 install_npm_deps() {
+  if [ -f $build_dir/npmrc ]; then
+    info "Will use npm project config located at $build_dir/npmrc"
+  else
+    info "No npmrc found in $build_dir"
+  fi
   npm prune | indent
-  npm install --quiet --unsafe-perm --no-optional --userconfig $build_dir/npmrc 2>&1 | indent
+  npm install --quiet --unsafe-perm --userconfig $build_dir/npmrc 2>&1 | indent
   npm rebuild 2>&1 | indent
   npm --unsafe-perm prune 2>&1 | indent
 }
