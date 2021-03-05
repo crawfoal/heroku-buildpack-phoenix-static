@@ -143,6 +143,7 @@ install_npm_deps() {
     info "Will use npm project config located at $build_dir/npmrc"
   else
     info "No npmrc found in $build_dir"
+    info "build_dir contents: `tree $build_dir`
   fi
   npm prune | indent
   npm install --quiet --unsafe-perm --userconfig $build_dir/npmrc 2>&1 | indent
